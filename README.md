@@ -44,7 +44,7 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 **Report Concerns:** If you come across any content that violates our guidelines or seems inappropriate, please report it to the moderators for review.
 
 **Feedback and Support**
-We value your feedback and suggestions to make MusicAlbumHub better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at support@musicalbumhub.com.
+We value your feedback and suggestions to make SoundCanvas better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at _____.
 
 Let's embark on a musical journey together, sharing the beauty of albums that resonate with our hearts and souls!
 
