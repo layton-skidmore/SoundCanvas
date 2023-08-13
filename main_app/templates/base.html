@@ -18,11 +18,17 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-white font-semibold text-lg">Logo</div>
             <ul class="flex space-x-4">
-                <li><a href="{% url 'index' %}" class="text-white hover:underline">My Profile</a></li>
-                <li><a href="{% url 'new_album' %}" class="text-white hover:underline">New Album</a></li>
-                <li><a href="#" class="text-white hover:underline">Discussion</a></li>
-                <li><a href="#" class="text-white hover:underline">New Discussion</a></li>
                 <li><a href="{% url 'about' %}" class="text-white hover:underline">About</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}" class="text-white hover:underline">My Profile</a></li>
+                    <li><a href="{% url 'new_album' %}" class="text-white hover:underline">New Album</a></li>
+                    <li><a href="#" class="text-white hover:underline">Discussion</a></li>
+                    <li><a href="#" class="text-white hover:underline">New Discussion</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                {% endif %}
+                
             </ul>
         </div>
     </nav>

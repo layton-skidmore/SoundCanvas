@@ -16,3 +16,7 @@ class NewAlbumView(CreateView):
     model = Album
     fields = ['name', 'artist_name']
     template_name = 'main_app/new_album.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user  
+        return super().form_valid(form)
