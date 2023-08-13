@@ -9,7 +9,27 @@ class Category(models.Model):
     album_name = models.CharField(max_length=100)
     artist = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.album_name} on {self.artist}"
+
 
 class Thread(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField(max_length=3000)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.name} \n {self.title}"
+
+class Post(models.Model):
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(max_length=3000)
+    date = models.DateField(auto_now_add=True)
+    upvotes = models.PositiveIntegerField(default=0)
+    downvotes = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.name}'s post under '{self.thread.title}' thread"
