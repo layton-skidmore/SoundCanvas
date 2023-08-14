@@ -5,4 +5,16 @@
     <h1 class="text-4xl font-bold">User's Profile</h1>
 </div>
 
+<h1>Welcome to your profile, {{ user.username }}!</h1>
+  
+<h2>Your Albums:</h2>
+<ul>
+  {% for album in albums %}
+    <li>
+      <img src="{{ album.album_cover }}" alt="Album Cover">
+      <p><strong>{{ album.name }}</strong> by {{ album.artist_name }}</p>
+    </li>
+  {% endfor %}
+</ul>
+
 {% endblock %}

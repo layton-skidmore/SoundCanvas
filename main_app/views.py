@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
+from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
+from decouple import config
+import boto3
+import os
+from botocore.exceptions import NoCredentialsError
 
 
 # Create your views here.
@@ -17,14 +22,38 @@ def profile_index(request):
     albums = Album.objects.all()
     return render(request, 'profile/index.html', {'albums' : albums })
 
+class AlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = ['name', 'artist_name', 'album_cover']
+
+
 class NewAlbumView(CreateView):
-    model = Album
-    fields = ['name', 'artist_name']
+    form_class = AlbumForm
     template_name = 'main_app/new_album.html'
     success_url = '/index/'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  
+        form.instance.user = self.request.user
+
+        album = form.save(commit=False)
+
+        if 'album_cover' in self.request.FILES:
+            album_cover = self.request.FILES['album_cover']
+            aws_access_key_id = config('AWS_ACCESS_KEY_ID')
+            aws_secret_access_key = config('AWS_SECRET_ACCESS_KEY')
+            s3 = boto3.client(
+                's3',
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+            )
+            try:
+                s3.upload_fileobj(album_cover, config('S3_BUCKET'), album_cover.name)
+                album.album_cover = f"{config('S3_BASE_URL')}{config('S3_BUCKET')}/{album_cover.name}"
+            except NoCredentialsError:
+                print("Credentials not available")
+
+        album.save()
         return super().form_valid(form)
 
      

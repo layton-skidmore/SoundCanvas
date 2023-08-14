@@ -1,3 +1,7 @@
 input[type="text"] {
     border: 1px solid #e2e8f0; 
 }
+
+body {
+    background-color: red;
+}
