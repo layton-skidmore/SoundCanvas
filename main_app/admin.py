@@ -6,3 +6,4 @@ from .models import Album, Review
 
 admin.site.register(Album)
 admin.site.register(Review)
+
