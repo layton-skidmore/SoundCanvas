@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  
+<h1 class="text-2xl font-semibold mb-4">Add Album</h1>  
+
+  <!-- Leaving the action empty makes the form post to the same URL used to display it -->
+  <form action="" method="POST" class="space-y-4">
+    <!-- Django requires the following for security purposes -->
+    {% csrf_token %}
+    <div class="flex flex-col space-y-2">
+      <label for="{{ form.name.id_for_label }}" class="text-gray-700">Name</label>
+      {{ form.name }}
+    </div>
+    <div class="flex flex-col space-y-2">
+      <label for="{{ form.artist_name.id_for_label }}" class="text-gray-700">Artist Name</label>
+      {{ form.artist_name }}
+    </div>
+    <input type="submit" value="Submit!" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 cursor-pointer">
+  </form>
+</div>
+{% endblock %}
