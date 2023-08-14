@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Discussion List</h1>
+
+{% for category in category_list %}
+  <a href="{% url 'forum:category_details' category.id %}">
+    <div>
+        <div>
+            <h3>{{ category.album_name }}</p>
+            <p>{{ category.artist }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
