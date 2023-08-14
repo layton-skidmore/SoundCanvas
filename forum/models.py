@@ -11,6 +11,9 @@ class Category(models.Model):
 
     def __str__(self):
         return f"{self.album_name} on {self.artist}"
+    
+    def get_absolute_url(self):
+        return reverse("home")
 
 
 class Thread(models.Model):

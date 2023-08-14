@@ -1,6 +1,11 @@
 from django.urls import path
 from . import views
+
+app_name = 'forum'
 	
 urlpatterns = [
-	# path('', views.home, name='home'),
+	path('', views.CategoryList.as_view(), name='home'),
+	path('create/', views.CategoryCreate.as_view(), name='category_create'),
+	path('<int:category_id>/', views.details, name='category_details'),
+    
  ]
