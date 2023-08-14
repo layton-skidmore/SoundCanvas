@@ -22,5 +22,6 @@ from django.contrib.auth.forms import UserCreationForm
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('forum/', include('fourm.urls')),
 ]
