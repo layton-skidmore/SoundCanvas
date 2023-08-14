@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
 
+
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -25,7 +26,8 @@ class NewAlbumView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user  
         return super().form_valid(form)
-    
+
+     
 def signup(request):
   error_message = ''
   if request.method == 'POST':
