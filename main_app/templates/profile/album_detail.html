@@ -1,26 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>{{ album.name }} by {{ album.artist_name }}</h2>
-<ul>
-  {% for review in reviews %}
-    <li>
-      <p>{{ review.text }}</p>
-      <p>Rating: {{ review.rating }}/10</p>
-    </li>
-  {% endfor %}
-</ul>
-
-{% if user_has_review %}
-  <p>You have already submitted a review for this album.</p>
-{% else %}
-  <h2>Submit a Review:</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit Review</button>
-  </form>
-{% endif %}
+<div class="flex flex-col items-center justify-center">
+    <div class="w-60 h-60 mx-auto mb-4 flex items-center justify-center">
+      <img src="{{ album.album_cover }}" alt="Album Cover" class="object-contain w-full h-full">
+    </div>
+  
+    <div class="w-full max-w-md text-center">
+      <h2 class="text-2xl font-semibold">{{ album.name }} by {{ album.artist_name }}</h2>
+  
+      <ul class="mt-4">
+        {% for review in reviews %}
+          <li class="mb-4">
+            <p>{{ review.text }}</p>
+            <p>Rating: {{ review.rating }}/10</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  
+    <div class="flex flex-col items-center mt-4">
+      {% if user_has_review %}
+        <p class="mt-2">You have already submitted a review for this album.</p>
+      {% else %}
+        <h2 class="text-xl font-semibold mt-4">Submit a Review:</h2>
+        <form method="post" class="mt-2">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Submit Review</button>
+        </form>
+      {% endif %}
+      {% comment %} <a href ="{% url 'album_update' album.id %}">Edit</a> {% endcomment %}
+    </div>
+  </div>
 
 
 {% endblock %}
