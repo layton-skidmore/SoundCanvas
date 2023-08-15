@@ -5,6 +5,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
+from .forms import ReviewForm
+from decouple import config
 import boto3
 import os
 from botocore.exceptions import NoCredentialsError
@@ -20,6 +22,32 @@ def about(request):
 def profile_index(request):
     albums = Album.objects.all()
     return render(request, 'profile/index.html', {'albums' : albums })
+
+def album_detail(request, album_id):
+    album = Album.objects.get(id=album_id)
+    reviews = Review.objects.filter(album=album)
+
+    user_has_review = False
+    if request.user.is_authenticated:
+        user_reviews = reviews.filter(user=request.user)
+        if user_reviews.exists():
+            user_has_review = True
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            if not user_has_review:
+                review = form.save(commit=False)
+                review.album = album
+                review.user = request.user
+                review.save()
+                user_has_review = True
+
+    else:
+        form = ReviewForm()
+
+    return render(request, 'profile/album_detail.html', {'album': album, 'reviews': reviews, 'form': form, 'user_has_review': user_has_review})
+
 
 class AlbumForm(forms.ModelForm):
     class Meta:
