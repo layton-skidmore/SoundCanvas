@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
 from .forms import ReviewForm
-from decouple import config
 import boto3
 import os
 from botocore.exceptions import NoCredentialsError
