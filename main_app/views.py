@@ -22,6 +22,11 @@ def profile_index(request):
     albums = Album.objects.all()
     return render(request, 'profile/index.html', {'albums' : albums })
 
+def album_detail(request, album_id):
+    album = Album.objects.get(id=album_id)
+    return render(request, 'profile/album_detail.html', {'album' : album })
+
+
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album

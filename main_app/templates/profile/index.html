@@ -5,16 +5,21 @@
     <h1 class="text-4xl font-bold">User's Profile</h1>
 </div>
 
-<h1>Welcome to your profile, {{ user.username }}!</h1>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold mb-4">Welcome to your profile, {{ user.username }}!</h1>
   
-<h2>Your Albums:</h2>
-<ul>
-  {% for album in albums %}
-    <li>
-      <img src="{{ album.album_cover }}" alt="Album Cover">
-      <p><strong>{{ album.name }}</strong> by {{ album.artist_name }}</p>
-    </li>
-  {% endfor %}
-</ul>
+      <h2 class="text-2xl mb-2">Your Albums:</h2>
+      <ul class="grid grid-cols-4 gap-4">
+        {% for album in albums %}
+          <li>
+            <a href="/album/{{ album.id }}">
+              <img src="{{ album.album_cover }}" alt="Album Cover" class="w-full">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
 
 {% endblock %}
