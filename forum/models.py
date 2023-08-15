@@ -24,7 +24,7 @@ class Thread(models.Model):
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.name} \n {self.title}"
+        return f"{self.user.username} \n {self.title}"
 
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
