@@ -1,0 +1,58 @@
+{% extends 'forum_base.html' %}
+{% block content %}
+
+<div>
+    <h1>{{ category.album_name }}<h1>
+    <h4>{{ category.artist }}<h4>
+</div>
+
+<br>
+
+<div>
+    <h1>{{ thread.title }}<h1>
+    <p>{{ thread.text }}<p>
+</div>
+
+<button id="post_button"> Create A Post </button>
+
+<div id="form" class="disabled">
+    <form action="{% url 'forum:thread_details' category.id thread.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Render the inputs -->
+        {{ post_form.as_p }}
+        <input type="submit" value="Create Post">
+    </form>
+</div>
+
+{% if thread.post_set.count %}
+
+    {% for post in thread.post_set.all %}
+
+            <div>
+                <h2>{{ post.text }}</h2>
+                <p>{{ post.upvotes }}</p><button>&#8679;</button>
+                <p>{{ post.downvotes }}</p><button>&#8681;</button>
+            </div>
+
+    {% endfor %}
+
+{% else %}
+    
+    <h2>No posts yet!</h2>
+    <p>Create a new post!</p>
+
+{% endif %}
+
+<script>
+
+    const toggleButton = document.getElementById('post_button');
+    const myForm = document.getElementById('form');
+    
+    toggleButton.addEventListener('click', function() {
+        myForm.style.display = myForm.style.display === 'none' ? 'block' : 'none';
+        // Alternatively, use visibility property: myForm.style.visibility = myForm.style.visibility === 'hidden' ? 'visible' : 'hidden';
+    });
+
+</script>
+
+{% endblock %}

@@ -5,7 +5,6 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
-from decouple import config
 import boto3
 import os
 from botocore.exceptions import NoCredentialsError
@@ -40,16 +39,16 @@ class NewAlbumView(CreateView):
 
         if 'album_cover' in self.request.FILES:
             album_cover = self.request.FILES['album_cover']
-            aws_access_key_id = config('AWS_ACCESS_KEY_ID')
-            aws_secret_access_key = config('AWS_SECRET_ACCESS_KEY')
+            aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
+            aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
             s3 = boto3.client(
                 's3',
                 aws_access_key_id=aws_access_key_id,
                 aws_secret_access_key=aws_secret_access_key,
             )
             try:
-                s3.upload_fileobj(album_cover, config('S3_BUCKET'), album_cover.name)
-                album.album_cover = f"{config('S3_BASE_URL')}{config('S3_BUCKET')}/{album_cover.name}"
+                s3.upload_fileobj(album_cover, os.environ.get('S3_BUCKET'), album_cover.name)
+                album.album_cover = f"{os.environ.get('S3_BASE_URL')}{os.environ.get('S3_BUCKET')}/{album_cover.name}"
             except NoCredentialsError:
                 print("Credentials not available")
 

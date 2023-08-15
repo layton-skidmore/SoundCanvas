@@ -9,4 +9,4 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('new_album/create/', views.NewAlbumView.as_view(), name='new_album'),
     path('accounts/signup/', views.signup, name='signup'),
- ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+ ]
