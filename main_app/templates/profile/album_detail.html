@@ -1,7 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h2>{{ album.name }} by {{ album.artist_name }}</h2>
+<ul>
+  {% for review in reviews %}
+    <li>
+      <p>{{ review.text }}</p>
+      <p>Rating: {{ review.rating }}/10</p>
+    </li>
+  {% endfor %}
+</ul>
 
+{% if user_has_review %}
+  <p>You have already submitted a review for this album.</p>
+{% else %}
+  <h2>Submit a Review:</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+  </form>
+{% endif %}
 
 
 {% endblock %}
