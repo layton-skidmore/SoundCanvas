@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 class Category(models.Model):
     album_name = models.CharField(max_length=100)
     artist = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.album_name} on {self.artist}"
     
     def get_absolute_url(self):
-        return reverse("home")
+        return reverse("forum:home")
 
 
 class Thread(models.Model):

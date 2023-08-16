@@ -1,5 +1,6 @@
 {% extends 'forum_base.html' %}
 {% block content %}
+{% load static %}
 
 <div>
     <h1>{{ category.album_name }}<h1>
@@ -11,12 +12,26 @@
 <div>
     <h1>{{ thread.title }}<h1>
     <p>{{ thread.text }}<p>
+    {% if is_users_thread %}
+        <p>This is your thread</p>
+
+        <button id="thread_button">&#9999;&#65039;</button>
+
+        <div id="form-div-thread" style="display: none;">
+            <form id="form" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
+                {% csrf_token %}
+                <!-- Render the inputs -->
+                {{ thread_form.as_p }}
+                <input type="submit" value="Create Post">
+            </form>
+        </div>
+    {% endif %}
 </div>
 
 <button id="post_button"> Create A Post </button>
 
-<div id="form" class="disabled">
-    <form action="{% url 'forum:thread_details' category.id thread.id %}" method="POST">
+<div id="form-div" style="display: none;">
+    <form id="form" action="{% url 'forum:thread_details' category.id thread.id %}" method="POST">
         {% csrf_token %}
         <!-- Render the inputs -->
         {{ post_form.as_p }}
@@ -25,17 +40,17 @@
 </div>
 
 {% if thread.post_set.count %}
-
+<div id="posts-container">
     {% for post in thread.post_set.all %}
 
-            <div>
+            <div id="{{ post.id }}">
                 <h2>{{ post.text }}</h2>
-                <p>{{ post.upvotes }}</p><button>&#8679;</button>
-                <p>{{ post.downvotes }}</p><button>&#8681;</button>
+                <p>{{ post.upvotes }}</p>
+                <button>&#8679;</button><button>&#8681;</button>
             </div>
 
     {% endfor %}
-
+</div>
 {% else %}
     
     <h2>No posts yet!</h2>
@@ -43,16 +58,6 @@
 
 {% endif %}
 
-<script>
-
-    const toggleButton = document.getElementById('post_button');
-    const myForm = document.getElementById('form');
-    
-    toggleButton.addEventListener('click', function() {
-        myForm.style.display = myForm.style.display === 'none' ? 'block' : 'none';
-        // Alternatively, use visibility property: myForm.style.visibility = myForm.style.visibility === 'hidden' ? 'visible' : 'hidden';
-    });
-
-</script>
+<script src="{% static 'js/thread_details.js' %}"></script>
 
 {% endblock %}

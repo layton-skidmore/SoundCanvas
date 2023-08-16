@@ -4,6 +4,9 @@
 <div>
     <h1>{{ category.album_name }}<h1>
     <h4>{{ category.artist }}<h4>
+    {% if is_users_catergory %}
+        <p>This is your catergory <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
+    {% endif %}
 </div>
 
 {% if category.thread_set.count %}
