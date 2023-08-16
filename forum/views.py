@@ -36,7 +36,7 @@ def details(request, category_id):
 
 class CategoryUpdate(UpdateView):
     model = Category
-    fields = '__all__'
+    fields = ['album_name', 'artist']
 
 class CategoryCreate(CreateView):
     model = Category
