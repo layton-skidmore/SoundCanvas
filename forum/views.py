@@ -40,7 +40,12 @@ class CategoryUpdate(UpdateView):
 
 class CategoryCreate(CreateView):
     model = Category
-    fields = '__all__'
+    fields = ['album_name', 'artist']
+
+    def form_valid(self, form):
+
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class CategoryList(ListView):
