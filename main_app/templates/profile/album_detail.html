@@ -30,9 +30,11 @@
           <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Submit Review</button>
         </form>
       {% endif %}
-      {% comment %} <a href ="{% url 'album_update' album.id %}">Edit</a> {% endcomment %}
+      <div class="card-action">
+        <a href="{% url 'album_update' album.id %}">Edit</a>
+        <a href="{% url 'album_delete' album.id %}">Delete</a>
+      </div>
     </div>
-  </div>
 
 
 {% endblock %}

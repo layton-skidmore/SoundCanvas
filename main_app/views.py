@@ -1,5 +1,6 @@
+from django.urls import reverse
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -23,8 +24,8 @@ def profile_index(request):
     albums = Album.objects.all()
     return render(request, 'profile/index.html', {'albums' : albums })
 
-def album_detail(request, album_id):
-    album = Album.objects.get(id=album_id)
+def album_detail(request, pk):
+    album = Album.objects.get(id=pk)
     reviews = Review.objects.filter(album=album)
 
     user_has_review = False
@@ -54,11 +55,10 @@ class AlbumForm(forms.ModelForm):
         model = Album
         fields = ['name', 'artist_name', 'album_cover']
 
-
 class NewAlbumView(CreateView):
     form_class = AlbumForm
-    template_name = 'main_app/new_album.html'
-    success_url = '/index/'
+    success_url = '//'
+    template_name = 'main_app/album_form.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -87,7 +87,17 @@ class NewAlbumView(CreateView):
         album.save()
         return super().form_valid(form)
 
+class AlbumUpdate(UpdateView):
+  model = Album
+  # This negates the ability to rename the album by excluding the name field
+  fields = ['name', 'artist_name', 'album_cover']
+  # Get success redirect will use the return function to pass the name of a view
+  def get_success_url(self) -> str:
+     return reverse('detail', kwargs= dict(pk=self.object.pk))
 
+class AlbumDelete(DeleteView):
+  model = Album
+  success_url = '/index'
      
 def signup(request):
   error_message = ''

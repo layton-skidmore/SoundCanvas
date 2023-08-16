@@ -14,7 +14,7 @@ class Album(models.Model):
         return self.name
     
     def get_absolute_url(self):
-      return reverse('album_update', kwargs={'album_id': self.id})
+      return reverse('album_update', kwargs={'pk': self.id})
 
 
 class Review(models.Model):
