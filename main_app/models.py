@@ -10,9 +10,11 @@ class Album(models.Model):
     artist_name = models.CharField(max_length=200)
     album_cover = models.URLField(blank=True)
     
-
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+      return reverse('album_update', kwargs={'pk': self.id})
 
 
 class Review(models.Model):
@@ -22,3 +24,9 @@ class Review(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+      return reverse('review_delete', kwargs={'pk': self.id})
