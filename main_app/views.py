@@ -65,7 +65,7 @@ class NewAlbumView(CreateView):
         album = form.save(commit=False)
 
         if 'album_cover' in self.request.FILES:
-            album_cover = self.request.FILES['album_cover']
+            album_cover = self.request.FILES.get('album_cover', None)
             aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
             aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
             s3 = boto3.client(

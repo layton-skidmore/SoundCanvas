@@ -13,7 +13,7 @@ class Category(models.Model):
         return f"{self.album_name} on {self.artist}"
     
     def get_absolute_url(self):
-        return reverse("home")
+        return reverse("forum:home")
 
 
 class Thread(models.Model):
