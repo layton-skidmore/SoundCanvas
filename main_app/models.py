@@ -24,3 +24,9 @@ class Review(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+      return reverse('review_delete', kwargs={'pk': self.id})

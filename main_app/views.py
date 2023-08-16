@@ -55,9 +55,9 @@ class AlbumForm(forms.ModelForm):
         model = Album
         fields = ['name', 'artist_name', 'album_cover']
 
-class NewAlbumView(CreateView):
+class AlbumCreate(CreateView):
     form_class = AlbumForm
-    success_url = '//'
+    success_url = '/index/'
     template_name = 'main_app/album_form.html'
 
     def form_valid(self, form):
@@ -98,6 +98,45 @@ class AlbumUpdate(UpdateView):
 class AlbumDelete(DeleteView):
   model = Album
   success_url = '/index'
+
+class ReviewCreate(CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'main_app/review_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        album_id = self.kwargs['album_id']
+        album = Album.objects.get(pk=album_id)
+        context['album'] = album
+        return context
+
+    def form_valid(self, form):
+        album_id = self.kwargs['album_id']
+        album = Album.objects.get(pk=album_id)
+        review = form.save(commit=False)
+        review.album = album
+        review.user = self.request.user 
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        album_id = self.kwargs['album_id']
+        return reverse('detail', kwargs={'pk': album_id})
+    
+class ReviewDelete(DeleteView):
+    model = Review
+    success_url = '/album/{}/'  
+    
+    def get_success_url(self):
+        return self.success_url.format(self.object.album.pk)
+    
+class ReviewUpdate(UpdateView):
+    model = Review
+    fields = ['text', 'rating']
+  
+    def get_success_url(self) -> str:
+        album_id = self.object.album.pk
+        return reverse('detail', kwargs={'pk': album_id})
      
 def signup(request):
   error_message = ''
