@@ -1,12 +1,19 @@
 
-const toggleButton = document.getElementById('post_button');
-const formDiv = document.getElementById('form-div');
+const toggleButtonPost = document.getElementById('post_button');
+const formDivPost = document.getElementById('form-div');
 
-toggleButton.addEventListener('click', function() {
-    formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
+toggleButtonPost.addEventListener('click', function() {
+    formDivPost.style.display = formDivPost.style.display === 'none' ? 'block' : 'none';
 
 });
 
+const toggleButtonThread = document.getElementById('thread_button');
+const formDivThread = document.getElementById('form-div');
+
+toggleButtonThread.addEventListener('click', function() {
+    formDivThread.style.display = formDivThread.style.display === 'none' ? 'block' : 'none';
+
+});
 
 const form = document.getElementById('form');
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;

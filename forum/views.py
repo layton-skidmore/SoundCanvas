@@ -14,7 +14,7 @@ def details(request, category_id):
     category = Category.objects.get(id=category_id)
     thread_form = ThreadForm()
 
-    is_users_catergory = True if category_id == request.user.id else False
+    is_users_catergory = True if category.user.id == request.user.id else False
     
     if request.method == 'POST':
 
@@ -41,7 +41,6 @@ class CategoryUpdate(UpdateView):
 class CategoryCreate(CreateView):
     model = Category
     fields = '__all__'
-    # success_url = '/forum'
 
 
 class CategoryList(ListView):
@@ -57,7 +56,9 @@ def thread_details(request, category_id, thread_id):
 
     category = Category.objects.get(id=category_id)
     thread = Thread.objects.get(id=thread_id)
+    thread_form = ThreadForm()
     post_form = PostForm()
+    is_users_thread = True if category.user.id == request.user.id else False
 
     if request.method == 'POST':
 
@@ -97,6 +98,32 @@ def thread_details(request, category_id, thread_id):
     return render(request, 'thread_details.html', {
         'category': category,
         'thread': thread,
-        'post_form': post_form
+        'post_form': post_form,
+        'thread_form': thread_form,
+        'is_users_thread': is_users_thread
     })
+
+def thread_update(request, category_id, thread_id):
+
+    if request.method == 'POST':
+
+        thread = Thread.objects.get(id=thread_id)
+
+        json_data = json.loads(request.body)
+        title = json_data.get('title')
+        text = json_data.get('text')
+
+        thread.title = title
+        thread.text = text
+        thread.save()
+
+        thread_data = {
+            'title': title,
+            'text': text,
+        }
+
+        return JsonResponse({'message': 'Thread updated successfully', 'thread': thread_data})
+
+        
+
 

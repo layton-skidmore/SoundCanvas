@@ -12,6 +12,20 @@
 <div>
     <h1>{{ thread.title }}<h1>
     <p>{{ thread.text }}<p>
+    {% if is_users_thread %}
+        <p>This is your thread</p>
+
+        <button id="thread_button">&#9999;&#65039;</button>
+
+        <div id="form-div-thread" style="display: none;">
+            <form id="form" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
+                {% csrf_token %}
+                <!-- Render the inputs -->
+                {{ thread_form.as_p }}
+                <input type="submit" value="Create Post">
+            </form>
+        </div>
+    {% endif %}
 </div>
 
 <button id="post_button"> Create A Post </button>
