@@ -6,9 +6,10 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Review, Album
-from .forms import ReviewForm
+from .forms import ReviewForm, AlbumForm
 from decouple import config
 import boto3
+import uuid
 import os
 from botocore.exceptions import NoCredentialsError
 
@@ -21,7 +22,7 @@ def about(request):
   return render(request, 'about.html')
 
 def profile_index(request):
-    albums = Album.objects.all()
+    albums = Album.objects.filter(user=request.user)
     return render(request, 'profile/index.html', {'albums' : albums })
 
 def album_detail(request, pk):
@@ -50,10 +51,7 @@ def album_detail(request, pk):
     return render(request, 'profile/album_detail.html', {'album': album, 'reviews': reviews, 'form': form, 'user_has_review': user_has_review})
 
 
-class AlbumForm(forms.ModelForm):
-    class Meta:
-        model = Album
-        fields = ['name', 'artist_name', 'album_cover']
+
 
 class AlbumCreate(CreateView):
     form_class = AlbumForm
@@ -79,8 +77,11 @@ class AlbumCreate(CreateView):
                     aws_access_key_id=aws_access_key_id,
                     aws_secret_access_key=aws_secret_access_key,
                 )
-                s3.upload_fileobj(album_cover, s3_bucket, album_cover.name)
-                album.album_cover = f"{s3_base_url}{s3_bucket}/{album_cover.name}"
+
+                unique_filename = uuid.uuid4().hex[:6] + album_cover.name[album_cover.name.rfind('.'):]
+
+                s3.upload_fileobj(album_cover, s3_bucket, unique_filename)
+                album.album_cover = f"{s3_base_url}{s3_bucket}/{unique_filename}"
             except NoCredentialsError:
                 print("Credentials not available")
 
@@ -90,7 +91,7 @@ class AlbumCreate(CreateView):
 class AlbumUpdate(UpdateView):
   model = Album
   # This negates the ability to rename the album by excluding the name field
-  fields = ['name', 'artist_name', 'album_cover']
+  fields = ['name', 'artist_name']
   # Get success redirect will use the return function to pass the name of a view
   def get_success_url(self) -> str:
      return reverse('detail', kwargs= dict(pk=self.object.pk))
