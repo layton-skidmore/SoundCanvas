@@ -25,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+sv*$fejqa=vf*krt+51586wsmw8)l0+m(c=t)2hr&vey=)5bk'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOST").split(" ")
 
 
 # Application definition
@@ -80,12 +80,13 @@ WSGI_APPLICATION = 'unit_three_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'neondb',
     'USER': 'sylvestermsmithiii',
-    'PASSWORD': 'MAczFoJ64dgD',
+    'PASSWORD': os.environ.get("PASSWORD"),
     'HOST': 'ep-summer-base-49967008.us-west-2.aws.neon.tech',
     'PORT': '5432',
   }
