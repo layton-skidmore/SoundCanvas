@@ -31,8 +31,6 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 
 **No Spamming:** Refrain from spamming the forum with repetitive content or excessive self-promotion.
 
-**Report Concerns:** If you come across any content that violates our guidelines or seems inappropriate, please report it to the moderators for review.
-
 **Ice Box Features**
 
 **Upvoting & Downvoting**: Show your appreciation for insightful comments and reviews by upvoting them. Similarly, downvote content that doesn't contribute positively to the community.
@@ -45,7 +43,10 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 
 **Connect with Users:** Follow other users with similar musical tastes, view their profiles, contact one another via DM, and stay updated with their album reviews and recommendations.
 
+**Report Concerns:** If you come across any content that violates our guidelines or seems inappropriate, please report it to the moderators for review.
+
 **Feedback and Support**
+
 We value your feedback and suggestions to make SoundCanvas better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at jiang.j.jason@gmail.com
 
 Let's embark on a musical journey together, sharing the beauty of albums that resonate with our hearts and souls!
