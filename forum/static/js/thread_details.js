@@ -32,6 +32,9 @@ const form = document.getElementById('form');
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const postsContainer = document.getElementById('posts-container');
 const inputTextEl = document.getElementById('id_text');
+const h2 = document.getElementById('h2');
+const p = document.getElementById('p');
+
 
 let editButtons = document.querySelectorAll("#edit-post-button");
 
@@ -134,6 +137,15 @@ form.addEventListener('submit', async (event) => {
 
         });
     });
+
+    // if first post delete the sample text
+    if (h2) {
+        h2.remove();
+    }
+    
+    if (p) {
+        p.remove();
+    }
 });
 
 

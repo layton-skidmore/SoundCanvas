@@ -17,6 +17,9 @@ def details(request, category_id):
     thread_form = ThreadForm()
 
     is_users_category = True if category.user.id == request.user.id else False
+    print(category.user.id)
+    print(request.user.id)
+    print(is_users_category)
     
     if request.method == 'POST':
 
@@ -33,7 +36,7 @@ def details(request, category_id):
     return render(request, 'category_details.html', {
         'category': category,
         'thread_form': thread_form,
-        'is_users_catergory': is_users_category,
+        'is_users_category': is_users_category,
     })
 
 class CategoryUpdate(UpdateView):
