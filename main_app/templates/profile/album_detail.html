@@ -8,21 +8,22 @@
 
     <div class="w-full max-w-md text-center">
       <h2 class="text-2xl font-semibold">{{ album.name }} by {{ album.artist_name }}</h2>
-
       <div class="card-action">
-        <a href="{% url 'album_update' album.id %}">Edit</a>
-        <a href="{% url 'album_delete' album.id %}">Delete</a>
+        <a href="{% url 'album_update' album.id %}" class = "styled-link">Edit</a>
+        <a href="{% url 'album_delete' album.id %}" class = "styled-link">Delete</a>
       </div>
       
       <div class="mt-4">
-        <h3 class="text-lg font-semibold">Reviews</h3>
+        <h1 class="text-lg font-semibold">My Review:</h1>
         <ul>
           {% for review in album.review_set.all %}
             <li>
-              <p>Rating: {{ review.rating }}</p>
-              <p>{{ review.text }}</p>
-              <a href="{% url 'review_update' pk=review.pk %}">Edit Review</a>
-              <a href="{% url 'review_delete' pk=review.pk %}">Delete</a>
+                <p class="text-xl font-bold mb-2">Rating: <span class="inline-block w-8 h-8 text-center rounded-full border border-blue-500 bg-blue-500 text-white">{{ review.rating }}</span></p>
+                <p class="text-lg bg-gray-200 p-4 rounded-lg">{{ review.text }}</p>
+              <div class="card-action">
+                <a href="{% url 'review_update' pk=review.pk %}" class="styled-link">Edit</a>
+                <a href="{% url 'review_delete' pk=review.pk %}" class="styled-link">Delete</a>
+              </div>
             </li>
           {% endfor %}
         </ul>
@@ -30,7 +31,7 @@
     </div>
 
 
-        <a href="{% url 'review_form' album.id %}">Add Review</a>
+        <a href="{% url 'review_form' album.id %}" class = "styled-link">Add Review</a>
     </div>
 </div>
 

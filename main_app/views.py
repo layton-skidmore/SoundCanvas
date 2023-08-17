@@ -90,7 +90,6 @@ class AlbumCreate(CreateView):
 
 class AlbumUpdate(UpdateView):
   model = Album
-  # This negates the ability to rename the album by excluding the name field
   fields = ['name', 'artist_name']
   # Get success redirect will use the return function to pass the name of a view
   def get_success_url(self) -> str:

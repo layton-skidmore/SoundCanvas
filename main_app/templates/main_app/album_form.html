@@ -3,9 +3,9 @@
 {% block content %}
 
 {% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+<h1 class="text-3xl font-bold mb-4">Edit {{album.name}} by {{album.artist_name}}</h1>
 {% else %}
-<h1>Add Album</h1>
+<h1 class="text-3xl font-bold mb-4">Add Album</h1>
 {% endif %}
 
 <form method="POST" enctype="multipart/form-data" class="space-y-4">
@@ -23,11 +23,11 @@
 
     <div class="flex flex-col space-y-2">
       <label for="album_cover" class="text-gray-700">Album Artwork</label>
-      <input type="file" name="album_cover" accept="image/*" class="py-2 border rounded-md">
+      <div class="flex justify-center">
+        <input type="file" name="album_cover" accept="image/*" class="py-2 border rounded-md">
+      </div>
     </div>
-  
- 
-    <input type="submit" value="Submit!" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 cursor-pointer">
+    <input type="submit" value="Submit!" class="styled-button">
 </form>
 
 {% endblock %}
