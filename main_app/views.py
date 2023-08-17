@@ -137,6 +137,8 @@ class ReviewUpdate(UpdateView):
     def get_success_url(self) -> str:
         album_id = self.object.album.pk
         return reverse('detail', kwargs={'pk': album_id})
+    
+
      
 def signup(request):
   error_message = ''
