@@ -12,7 +12,9 @@ SoundCanvas is a community-driven forum designed for music enthusiasts to discus
 
 **Album Reviews:** Write and read reviews for albums you love or have just discovered. Help others make informed listening choices and find hidden musical gems.
 
-**Getting Started** Visit the site:
+**Getting Started** 
+
+Visit the site:
 
 **Create an Account**: Sign up for an account using your email address. You can also choose a unique username and profile picture to personalize your account.
 
