@@ -110,7 +110,7 @@ def thread_details(request, category_id, thread_id):
                 }
                 posts_data.append(post_data)
             
-            return JsonResponse({'message': 'Post added successfully', 'posts': posts_data}, content_type='application/json')
+            return JsonResponse({'message': 'Post added successfully', 'posts': posts_data, 'user_id': request.user.id, 'category_id': category.id, 'thread_id': thread.id}, content_type='application/json')
 
 
         
@@ -122,7 +122,8 @@ def thread_details(request, category_id, thread_id):
         'thread': thread,
         'post_form': post_form,
         'thread_form': thread_form,
-        'is_users_thread': is_users_thread
+        'is_users_thread': is_users_thread,
+        'user_id': request.user.id,
     })
 
 def thread_update(request, category_id, thread_id):
@@ -135,8 +136,7 @@ def thread_update(request, category_id, thread_id):
         title = request.POST['title']
         text = request.POST['text']
 
-        print(title)
-        print(text)
+
 
         thread.title = title
         thread.text = text
@@ -146,10 +146,30 @@ def thread_update(request, category_id, thread_id):
 
 class ThreadDelete(DeleteView):
     model = Thread
-    success_url = '/forum'
     
     def get_success_url(self):
         category_id = self.object.category.id
         return reverse('forum:category_details', kwargs={'category_id': category_id})
 
         
+def post_update(request, category_id, thread_id, post_id):
+
+    if request.method == 'POST':
+
+        post = Post.objects.get(id=post_id)
+        
+        text = request.POST['text']
+
+        post.text = text
+        post.save()
+
+        return redirect('forum:thread_details', category_id=category_id, thread_id=thread_id)
+
+
+class PostDelete(DeleteView):
+    model = Post
+
+    def get_success_url(self):
+        category_id = self.object.thread.category.id
+        thread_id = self.object.thread.id
+        return reverse('forum:thread_details', kwargs={'category_id': category_id, 'thread_id': thread_id})

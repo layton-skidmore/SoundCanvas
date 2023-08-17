@@ -58,6 +58,23 @@
                 <h2>{{ post.text }}</h2>
                 <p>{{ post.upvotes }}</p>
                 <button>&#8679;</button><button>&#8681;</button>
+
+                {% if post.user.id == user_id %}
+                    <button id="edit-post-button">&#9999;&#65039;</button>
+
+                    <div id="edit-form-post" style="display: none;">
+                        <form id="form-post" action="{% url 'forum:post_update' category.id thread.id post.id %}" method="POST">
+                            {% csrf_token %}
+                            <p>
+                                <label>Text:</label>
+                                <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>{{ post.text }}</textarea> 
+                            </p>
+                            <input type="submit" value="Update Post">
+                        </form>
+
+                        <a href="{% url 'forum:post_delete' category.id thread.id post.id %}">Delete This Post</a>
+                    </div>
+                {% endif %}
             </div>
 
     {% endfor %}

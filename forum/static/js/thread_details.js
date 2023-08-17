@@ -24,7 +24,7 @@ if (formDivThread) {
         titleEl.value = title_val
         textEl.innerHTML = text_val
     });
-    
+
 }
     
 
@@ -33,7 +33,7 @@ const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const postsContainer = document.getElementById('posts-container');
 const inputTextEl = document.getElementById('id_text');
 
-
+let editButtons = document.querySelectorAll("#edit-post-button");
 
 form.addEventListener('submit', async (event) => {
 
@@ -87,11 +87,33 @@ form.addEventListener('submit', async (event) => {
             const postElement = document.createElement('div');
 
 
-            postElement.innerHTML = `
+            let postHTML = `
                 <h2>${post.text}</h2>
                 <p>${post.upvotes}</p>
                 <button>&#8679;</button><button>&#8681;</button>
             `;
+
+            if (post.user === data.user_id) {
+
+                postHTML += `
+                    <button id="edit-post-button">&#9999;&#65039;</button>
+
+                    <div id="edit-form-post" style="display: none;">
+                        <form id="form-post" action="/forum/${data.category_id}/${data.thread_id}/${post.id}/edit/" method="POST">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+                        <p>
+                            <label>Text:</label>
+                            <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>${post.text}</textarea> 
+                        </p>
+                            <input type="submit" value="Update Post">
+                        </form>
+
+                        <a href="/forum/${data.category_id}/${data.thread_id}/${post.id}/delete/">Delete This Post</a>
+                    </div>
+                `;
+            }
+
+            postElement.innerHTML = postHTML
             postElement.id = `${post.id}`
         
             postsContainer.appendChild(postElement);
@@ -101,6 +123,32 @@ form.addEventListener('submit', async (event) => {
     } catch (error) {
         console.log(error)
     }
+
+    editButtons = document.querySelectorAll("#edit-post-button");
+    editButtons.forEach(editButton => {
+        editButton.addEventListener("click", (event) => {
+            const formDiv = event.target.nextElementSibling;
+    
+            // Show or hide the form div based on your logic
+            formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
+
+        });
+    });
 });
+
+
+editButtons.forEach(editButton => {
+    editButton.addEventListener("click", (event) => {
+        const formDiv = event.target.nextElementSibling;
+
+        // Show or hide the form div based on your logic
+        formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
+
+    });
+});
+
+// function showForm(event) {
+
+// }
 
   
