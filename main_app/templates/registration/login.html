@@ -1,14 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
+<div class="flex justify-center items-center h-screen">
+  <div class="w-full max-w-md p-6 bg-white rounded shadow-md">
 
-<!-- Add the login form -->
-<form method="POST" action="{% url 'login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="hidden" name="next" value="{{ next }}">
-  <button type="submit" class="btn">Log In</button>
-</form>
+    <div class="login">
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <input type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md">
+        </div>
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit" class="w-full p-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600">Log In</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center items-center h-screen">
+  <img src="https://cdn.pixabay.com/photo/2014/04/03/10/02/turntable-309662_1280.png" alt="Turntable Image" class="graphic mb-16">
+</div>
 
 {% endblock %}

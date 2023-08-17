@@ -17,7 +17,7 @@
     </div>
     
     <div class="flex flex-col space-y-2">
-        <label for="{{ form.artist_name.id_for_label }}" class="text-gray-700">Artist Name</label>
+        <label for="{{ form.artist_name.id_for_label }}" class="text-gray-700">Artist</label>
         {{ form.artist_name }}
     </div>
 
@@ -27,7 +27,7 @@
         <input type="file" name="album_cover" accept="image/*" class="py-2 border rounded-md">
       </div>
     </div>
-    <input type="submit" value="Submit!" class="styled-button">
+    <input type="submit" value="Submit" class="styled-button">
 </form>
 
 {% endblock %}
