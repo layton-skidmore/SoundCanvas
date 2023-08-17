@@ -11,5 +11,6 @@ urlpatterns = [
 	path('<int:pk>/delete/', views.CategoryDelete.as_view(), name='category_delete'),
 	path('<int:category_id>/<int:thread_id>/', views.thread_details, name='thread_details'),
 	path('<int:category_id>/<int:thread_id>/update/', views.thread_update, name='thread_update'),
+	path('<int:category_pk>/<int:pk>/delete/', views.ThreadDelete.as_view(), name='thread_delete'),
 	
  ]

@@ -10,21 +10,32 @@
 <br>
 
 <div>
-    <h1>{{ thread.title }}<h1>
-    <p>{{ thread.text }}<p>
+    <h1 id="title">{{ thread.title }}</h1>
+    <p id="text">{{ thread.text }}</p>
     {% if is_users_thread %}
         <p>This is your thread</p>
 
         <button id="thread_button">&#9999;&#65039;</button>
 
         <div id="form-div-thread" style="display: none;">
-            <form id="form" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
+            <form id="form-thread" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
                 {% csrf_token %}
                 <!-- Render the inputs -->
-                {{ thread_form.as_p }}
-                <input type="submit" value="Create Post">
+                <p>
+                    <label>Title:</label>
+                    <input type="text" name="title" maxlength="200" required id="form_title"></input>
+                </p>
+                <p>
+                    <label>Text:</label>
+                    <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required></textarea> 
+                </p>
+                <input type="submit" value="Update Form">
             </form>
+
+            <a href={% url 'forum:thread_delete' category.id thread.id %}>Delete This Thread<a>
         </div>
+
+        
     {% endif %}
 </div>
 

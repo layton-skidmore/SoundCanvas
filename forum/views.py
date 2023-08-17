@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 from django.core import serializers
+from django.urls import reverse
+from urllib.parse import parse_qs
 from .models import Category, Thread, Post
 from .forms import ThreadForm, PostForm
 import json
@@ -14,7 +16,7 @@ def details(request, category_id):
     category = Category.objects.get(id=category_id)
     thread_form = ThreadForm()
 
-    is_users_catergory = True if category.user.id == request.user.id else False
+    is_users_category = True if category.user.id == request.user.id else False
     
     if request.method == 'POST':
 
@@ -31,7 +33,7 @@ def details(request, category_id):
     return render(request, 'category_details.html', {
         'category': category,
         'thread_form': thread_form,
-        'is_users_catergory': is_users_catergory,
+        'is_users_catergory': is_users_category,
     })
 
 class CategoryUpdate(UpdateView):
@@ -67,8 +69,14 @@ def thread_details(request, category_id, thread_id):
 
     if request.method == 'POST':
 
+        print(request.body)
+
         json_data = json.loads(request.body)
         text = json_data.get('text')
+
+        # encoded_data = request.body.decode('utf-8')
+        # parsed_data = parse_qs(encoded_data)
+        # text = parsed_data['text'][0]
 
         form = PostForm({'text': text})
 
@@ -93,11 +101,11 @@ def thread_details(request, category_id, thread_id):
                 }
                 posts_data.append(post_data)
             
-            return JsonResponse({'message': 'Post added successfully', 'posts': posts_data})
+            return JsonResponse({'message': 'Post added successfully', 'posts': posts_data}, content_type='application/json')
 
 
         
-        return JsonResponse({'message': 'Post added unsuccessfully'})
+        return JsonResponse({'message': 'Post added unsuccessfully'}, content_type='application/json')
         
 
     return render(request, 'thread_details.html', {
@@ -110,24 +118,30 @@ def thread_details(request, category_id, thread_id):
 
 def thread_update(request, category_id, thread_id):
 
+
     if request.method == 'POST':
 
         thread = Thread.objects.get(id=thread_id)
+        
+        title = request.POST['title']
+        text = request.POST['text']
 
-        json_data = json.loads(request.body)
-        title = json_data.get('title')
-        text = json_data.get('text')
+        print(title)
+        print(text)
 
         thread.title = title
         thread.text = text
         thread.save()
 
-        thread_data = {
-            'title': title,
-            'text': text,
-        }
+        return redirect('forum:thread_details', category_id=category_id, thread_id=thread_id)
 
-        return JsonResponse({'message': 'Thread updated successfully', 'thread': thread_data})
+class ThreadDelete(DeleteView):
+    model = Thread
+    success_url = '/forum'
+    
+    def get_success_url(self):
+        category_id = self.object.category.id
+        return reverse('forum:category_details', kwargs={'category_id': category_id})
 
         
 

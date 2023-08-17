@@ -8,28 +8,38 @@ toggleButtonPost.addEventListener('click', function() {
 });
 
 const toggleButtonThread = document.getElementById('thread_button');
-const formDivThread = document.getElementById('form-div');
+
+const formDivThread = document.getElementById('form-div-thread');
+
+const title_val = document.getElementById('title').textContent;
+const text_val = document.getElementById('text').textContent;
+
+const titleEl = document.getElementById('form_title');
+const textEl = document.getElementById('form_text');
 
 toggleButtonThread.addEventListener('click', function() {
     formDivThread.style.display = formDivThread.style.display === 'none' ? 'block' : 'none';
-
+    titleEl.value = title_val
+    textEl.innerHTML = text_val
 });
 
 const form = document.getElementById('form');
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 const postsContainer = document.getElementById('posts-container');
-const textEl = document.getElementById('id_text');
+const inputTextEl = document.getElementById('id_text');
+
 
 
 form.addEventListener('submit', async (event) => {
 
-    const text = textEl.value
+    // value from form 
+    const text = inputTextEl.value
 
     // supposed to reset input field to be blank
     // does not work because of browser caching
-    textEl.value = "";
+    inputTextEl.value = "";
 
-    formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
+    formDivPost.style.display = formDivPost.style.display === 'none' ? 'block' : 'none';
 
     
 
@@ -56,7 +66,7 @@ form.addEventListener('submit', async (event) => {
 
     if (data.message === 'Post added successfully') {
 
-        
+        console.log("here")
 
         postsContainer.innerHTML = '';
 
