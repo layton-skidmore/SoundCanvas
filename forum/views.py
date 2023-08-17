@@ -69,14 +69,22 @@ def thread_details(request, category_id, thread_id):
 
     if request.method == 'POST':
 
-        print(request.body)
+        json_data = None
 
-        json_data = json.loads(request.body)
+        if request.POST.dict() != {}:
+
+            print(request.POST.dict())
+
+            request_dict = request.POST.dict()
+            request_json = json.dumps(request_dict)
+            json_data = json.loads(request_json)  
+
+        else:
+        
+            json_data = json.loads(request.body.decode('utf-8'))
+
+        
         text = json_data.get('text')
-
-        # encoded_data = request.body.decode('utf-8')
-        # parsed_data = parse_qs(encoded_data)
-        # text = parsed_data['text'][0]
 
         form = PostForm({'text': text})
 
@@ -88,6 +96,7 @@ def thread_details(request, category_id, thread_id):
             new_post.save()
 
             posts = thread.post_set.all()
+
             posts_data = []
             for post in posts:
                 post_data = {
@@ -144,5 +153,3 @@ class ThreadDelete(DeleteView):
         return reverse('forum:category_details', kwargs={'category_id': category_id})
 
         
-
-

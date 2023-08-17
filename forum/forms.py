@@ -1,10 +1,10 @@
 from django.forms import ModelForm
 from .models import Category, Thread, Post
 
-class CategoryForm(ModelForm):
-  class Meta:
-    model = Category
-    fields = ['album_name', 'artist']
+# class CategoryForm(ModelForm):
+#   class Meta:
+#     model = Category
+#     fields = ['album_name', 'artist']
 
 class ThreadForm(ModelForm):
   class Meta:

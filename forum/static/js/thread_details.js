@@ -17,11 +17,16 @@ const text_val = document.getElementById('text').textContent;
 const titleEl = document.getElementById('form_title');
 const textEl = document.getElementById('form_text');
 
-toggleButtonThread.addEventListener('click', function() {
-    formDivThread.style.display = formDivThread.style.display === 'none' ? 'block' : 'none';
-    titleEl.value = title_val
-    textEl.innerHTML = text_val
-});
+if (formDivThread) {
+
+    toggleButtonThread.addEventListener('click', function() {
+        formDivThread.style.display = formDivThread.style.display === 'none' ? 'block' : 'none';
+        titleEl.value = title_val
+        textEl.innerHTML = text_val
+    });
+    
+}
+    
 
 const form = document.getElementById('form');
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
