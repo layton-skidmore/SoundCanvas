@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('forum/', include('forum.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
