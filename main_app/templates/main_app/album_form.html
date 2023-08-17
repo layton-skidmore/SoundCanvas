@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if object %}
+<h1 class="text-3xl font-bold mb-4">Edit {{album.name}} by {{album.artist_name}}</h1>
+{% else %}
+<h1 class="text-3xl font-bold mb-4">Add Album</h1>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" class="space-y-4">
+    {% csrf_token %}
+    
+    <div class="flex flex-col space-y-2">
+        <label for="{{ form.name.id_for_label }}" class="text-gray-700">Name</label>
+        {{ form.name }}
+    </div>
+    
+    <div class="flex flex-col space-y-2">
+        <label for="{{ form.artist_name.id_for_label }}" class="text-gray-700">Artist Name</label>
+        {{ form.artist_name }}
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <label for="album_cover" class="text-gray-700">Album Artwork</label>
+      <div class="flex justify-center">
+        <input type="file" name="album_cover" accept="image/*" class="py-2 border rounded-md">
+      </div>
+    </div>
+    <input type="submit" value="Submit!" class="styled-button">
+</form>
+
+{% endblock %}

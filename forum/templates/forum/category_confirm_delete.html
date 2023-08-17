@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete Category</h1>
+
+  <h4>Are you sure you want to delete this category</h4>
+  <p>{{ object.album_name }}</p>
+  <p>{{ object.artist }}</p>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!">
+    <a href="{% url 'forum:category_details' object.id %}">Cancel</a>
+  </form>
+{% endblock %}

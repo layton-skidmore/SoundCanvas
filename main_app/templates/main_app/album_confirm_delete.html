@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Delete Album</h1>
+
+  <h2>Are you sure you want to delete {{ object.name }}?</h2>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes - Delete!" class="styled-link">
+    <a href="{% url 'detail' object.id %}" class="styled-link">Cancel</a>
+  </form>
+{% endblock %}

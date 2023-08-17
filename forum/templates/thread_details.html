@@ -1,0 +1,92 @@
+{% extends 'forum_base.html' %}
+{% block content %}
+{% load static %}
+
+<div>
+    <h1>{{ category.album_name }}<h1>
+    <h4>{{ category.artist }}<h4>
+</div>
+
+<br>
+
+<div>
+    <h1 id="title">{{ thread.title }}</h1>
+    <p id="text">{{ thread.text }}</p>
+    {% if is_users_thread %}
+        <p>This is your thread</p>
+
+        <button id="thread_button">&#9999;&#65039;</button>
+
+        <div id="form-div-thread" style="display: none;">
+            <form id="form-thread" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
+                {% csrf_token %}
+                <!-- Render the inputs -->
+                <p>
+                    <label>Title:</label>
+                    <input type="text" name="title" maxlength="200" required id="form_title"></input>
+                </p>
+                <p>
+                    <label>Text:</label>
+                    <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required></textarea> 
+                </p>
+                <input type="submit" value="Update Form">
+            </form>
+
+            <a href={% url 'forum:thread_delete' category.id thread.id %}>Delete This Thread</a>
+        </div>
+
+        
+    {% endif %}
+</div>
+
+<button id="post_button"> Create A Post </button>
+
+<div id="form-div" style="display: none;">
+    <form id="form" action="{% url 'forum:thread_details' category.id thread.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Render the inputs -->
+        {{ post_form.as_p }}
+        <input type="submit" value="Create Post">
+    </form>
+</div>
+
+{% if thread.post_set.count %}
+<div id="posts-container">
+    {% for post in thread.post_set.all %}
+
+            <div id="{{ post.id }}">
+                <h2>{{ post.text }}</h2>
+                <p>{{ post.upvotes }}</p>
+                <button>&#8679;</button><button>&#8681;</button>
+
+                {% if post.user.id == user_id %}
+                    <button id="edit-post-button">&#9999;&#65039;</button>
+
+                    <div id="edit-form-post" style="display: none;">
+                        <form id="form-post" action="{% url 'forum:post_update' category.id thread.id post.id %}" method="POST">
+                            {% csrf_token %}
+                            <p>
+                                <label>Text:</label>
+                                <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>{{ post.text }}</textarea> 
+                            </p>
+                            <input type="submit" value="Update Post">
+                        </form>
+
+                        <a href="{% url 'forum:post_delete' category.id thread.id post.id %}">Delete This Post</a>
+                    </div>
+                {% endif %}
+            </div>
+
+    {% endfor %}
+</div>
+{% else %}
+    
+    <div id="posts-container"></div>
+    <h2 id="h2">No posts yet!</h2>
+    <p id="p">Create a new post!</p>
+
+{% endif %}
+
+<script src="{% static 'js/thread_details.js' %}"></script>
+
+{% endblock %}

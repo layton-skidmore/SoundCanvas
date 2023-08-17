@@ -1,0 +1,37 @@
+{% extends 'forum_base.html' %}
+{% block content %}
+
+<div>
+    <h1>{{ category.album_name }}<h1>
+    <h4>{{ category.artist }}<h4>
+    {% if is_users_category %}
+        <p>This is your category <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
+    {% endif %}
+</div>
+
+{% if category.thread_set.count %}
+
+    {% for thread in category.thread_set.all %}
+        <a href="{% url 'forum:thread_details' category.id thread.id %}">
+            <div>
+                <h2>{{ thread.title }}</h2>
+                <p>{{ thread.text }}</p>
+            </div>
+        </a>
+    {% endfor %}
+
+{% else %}
+    
+    <h2>No threads yet!</h2>
+    <p>Create a new thread</p>
+
+    <form action="{% url 'forum:category_details' category.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Render the inputs -->
+        {{ thread_form.as_p }}
+        <input type="submit" value="Create Thread">
+      </form>
+
+{% endif %}
+
+{% endblock %}
