@@ -32,8 +32,13 @@ const inputTextEl = document.getElementById('id_text');
 
 form.addEventListener('submit', async (event) => {
 
+    // stop form from submitting
+    event.preventDefault();
+
     // value from form 
     const text = inputTextEl.value
+
+    console.log(text)
 
     // supposed to reset input field to be blank
     // does not work because of browser caching
@@ -43,8 +48,7 @@ form.addEventListener('submit', async (event) => {
 
     
 
-    // stop form from submitting
-    event.preventDefault();
+    
     
     // get path/ action of form
     const action = form.getAttribute('action');
