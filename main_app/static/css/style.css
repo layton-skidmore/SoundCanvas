@@ -6,9 +6,9 @@ input[type="text"] {
 }
 
 body {
-    background-color: #ACD8E6;
-    text-align: center;
-    font-family: 'Lato', sans-serif;  
+  background-color: #ACD8E6;
+  text-align: center;
+  font-family: 'Lato', sans-serif !important;  
 }
 
 .styled-link {
@@ -102,3 +102,18 @@ body {
     position: absolute;
     top: 700px; 
 }
+
+.handjet-font {
+  font-family: 'Handjet', sans-serif;
+  font-size: 6rem !important; 
+
+}
+
+.handjet-font-header {
+  font-family: 'Handjet', sans-serif;
+
+}
+
+
+
+
