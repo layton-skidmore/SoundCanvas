@@ -46,7 +46,7 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 **Connect with Users:** Follow other users with similar musical tastes, view their profiles, contact one another via DM, and stay updated with their album reviews and recommendations.
 
 **Feedback and Support**
-We value your feedback and suggestions to make SoundCanvas better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at _____.
+We value your feedback and suggestions to make SoundCanvas better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at jiang.j.jason@gmail.com
 
 Let's embark on a musical journey together, sharing the beauty of albums that resonate with our hearts and souls!
 
