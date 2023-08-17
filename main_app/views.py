@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Review, Album
 from .forms import ReviewForm, AlbumForm
 from decouple import config
@@ -21,10 +22,12 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def profile_index(request):
     albums = Album.objects.filter(user=request.user)
     return render(request, 'profile/index.html', {'albums' : albums })
 
+@login_required
 def album_detail(request, pk):
     album = Album.objects.get(id=pk)
     reviews = Review.objects.filter(album=album)
@@ -53,7 +56,7 @@ def album_detail(request, pk):
 
 
 
-class AlbumCreate(CreateView):
+class AlbumCreate(LoginRequiredMixin, CreateView):
     form_class = AlbumForm
     success_url = '/index/'
     template_name = 'main_app/album_form.html'
@@ -88,18 +91,18 @@ class AlbumCreate(CreateView):
         album.save()
         return super().form_valid(form)
 
-class AlbumUpdate(UpdateView):
+class AlbumUpdate(LoginRequiredMixin, UpdateView):
   model = Album
   fields = ['name', 'artist_name']
   # Get success redirect will use the return function to pass the name of a view
   def get_success_url(self) -> str:
      return reverse('detail', kwargs= dict(pk=self.object.pk))
 
-class AlbumDelete(DeleteView):
+class AlbumDelete(LoginRequiredMixin, DeleteView):
   model = Album
   success_url = '/index'
 
-class ReviewCreate(CreateView):
+class ReviewCreate(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = 'main_app/review_form.html'
@@ -123,14 +126,14 @@ class ReviewCreate(CreateView):
         album_id = self.kwargs['album_id']
         return reverse('detail', kwargs={'pk': album_id})
     
-class ReviewDelete(DeleteView):
+class ReviewDelete(LoginRequiredMixin, DeleteView):
     model = Review
     success_url = '/album/{}/'  
     
     def get_success_url(self):
         return self.success_url.format(self.object.album.pk)
     
-class ReviewUpdate(UpdateView):
+class ReviewUpdate(LoginRequiredMixin, UpdateView):
     model = Review
     fields = ['text', 'rating']
   
