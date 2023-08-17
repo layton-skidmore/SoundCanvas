@@ -14,7 +14,7 @@ SoundCanvas is a community-driven forum designed for music enthusiasts to discus
 
 **Getting Started** 
 
-Visit the site:
+Visit the site: https://soundcanvas.onrender.com/
 
 **Create an Account**: Sign up for an account using your email address. You can also choose a unique username and profile picture to personalize your account.
 
