@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="mt-8 text-center">
-    <h1 class="text-4xl font-bold"></h1>
-</div>
+<div class="container mt-8 mb-8">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold handjet-font pb-6">SoundCanvas</h1>
+        <p class="text-lg mt-4">A safe haven to discuss and bond over your favorite music albums.</p>
+    </div>
 
-<div class="flex justify-center mt-8">
-    <img src="https://i.imgur.com/MFA5nwF.png" alt="Logo" class="logo">
-</div>
+    <p class="mt-4 text-lg">Sign up or log in to join the discussions and start sharing!</p>
 
-<div class="flex justify-center mt-0">
-    <a href="{% url 'signup' %}" class="styled-link">Sign Up</a>
-    <a href="{% url 'login' %}" class="styled-link ml-4">Log In</a>
-</div>
+    <div class="flex justify-center mt-4"> 
+        <img src="https://i.imgur.com/OwHTdTS.png" alt="Logo" class="logo">
+    </div>
 
+    <div class="text-center mt-4 mb-8">
+        <a href="{% url 'signup' %}" class="styled-link">Sign Up</a>
+        <a href="{% url 'login' %}" class="styled-link ml-4">Log In</a>
+    </div>
+</div>
 {% endblock %}
-

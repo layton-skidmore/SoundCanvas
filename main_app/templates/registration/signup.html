@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<div class="flex flex-col items-center">
+  <h1 class="text-2xl font-bold mb-4">Sign Up</h1>
 
-<h1 class="text-2xl font-bold mb-4">Sign Up</h1>
+  <p class="text-red-500">{{ error_message }}</p>
 
-<p class="text-red-500">{{ error_message }}</p>
-<form method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded cursor-pointer" value="Sign Up">
-</form>
+  <form method="POST" action="{% url 'signup' %}" class="w-full max-w-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
 
-
+    <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+      Sign Up
+    </button>
+  </form>
+</div>
 {% endblock %}
