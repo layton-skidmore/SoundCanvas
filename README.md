@@ -9,7 +9,7 @@
 
 SoundCanvas is a community-driven forum designed for music enthusiasts to discuss and share their favorite music albums. Whether you're a die-hard music fan or just looking to discover new albums, SoundCanvas provides a platform for lively discussions, album recommendations, and connecting with fellow music lovers.
 
-**Technologies Used**: Python, Django, Tailwind CSS
+**Technologies Used**: Python, HTML, CSS, JavaScript, Django, Tailwind CSS
 
 **Features**
 
