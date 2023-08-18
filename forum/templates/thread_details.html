@@ -26,7 +26,7 @@
             {% if is_users_thread %}
 
 
-                <div id="form-div-thread" style="display: none;" class="bg-blue-500 text-center pt-6 pb-2 my-3">
+                <div id="form-div-thread" style="display: none;" class="bg-blue-500 !text-center pt-6 pb-2 my-3">
                     <form id="form-thread" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
                         {% csrf_token %}
                         <!-- Render the inputs -->
@@ -62,7 +62,7 @@
     </div>
 
     {% if thread.post_set.count %}
-    <div id="posts-container" class="text-left p-2">
+    <div id="posts-container" class="!text-left p-2">
         {% for post in thread.post_set.all %}
 
                 <div id="header">
