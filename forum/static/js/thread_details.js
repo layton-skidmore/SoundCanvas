@@ -119,30 +119,6 @@ form.addEventListener('submit', async (event) => {
             </div>
             `
 
-            
-            // <h2>${post.text}</h2>
-            //     <p>${post.upvotes}</p>
-            //     <button>&#8679;</button><button>&#8681;</button>
-            // if (post.user === data.user_id) {
-
-            //     postHTML += `
-            //         <button id="edit-post-button">&#9999;&#65039;</button>
-
-            //         <div id="edit-form-post" style="display: none;">
-            //             <form id="form-post" action="/forum/${data.category_id}/${data.thread_id}/${post.id}/edit/" method="POST">
-            //             <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
-            //             <p>
-            //                 <label>Text:</label>
-            //                 <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>${post.text}</textarea> 
-            //             </p>
-            //                 <input type="submit" value="Update Post">
-            //             </form>
-
-            //             <a href="/forum/${data.category_id}/${data.thread_id}/${post.id}/delete/">Delete This Post</a>
-            //         </div>
-            //     `;
-            // }
-
             postElement.innerHTML = postHTML
             postElement.id = "header"
         

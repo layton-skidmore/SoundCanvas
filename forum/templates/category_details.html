@@ -5,7 +5,7 @@
     <h1 class="text-4xl">{{ category.album_name }}<h1>
     <h4 class="text-2xl">{{ category.artist }}<h4>
     {% if is_users_category %}
-        <p class="text-gray-400 text-sm inline pr-1">This is your category <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
+        <p class="text-gray-400 text-sm inline pr-1">This is your discussion <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
     {% endif %}
 </div>
 <div class="bg-white w-3/4 m-auto my-4">
