@@ -105,6 +105,7 @@ def thread_details(request, category_id, thread_id):
                 post_data = {
                 'id': post.id,
                 'user': post.user.id,
+                'username': post.user.username,
                 'text': post.text,
                 'date': post.date,
                 'upvotes': post.upvotes,
