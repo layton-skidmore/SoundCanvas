@@ -26,7 +26,9 @@
         <div class="pl-2 my-0.5">
 
             <h1 id="title" class="text-xl">{{ thread.title }}</h1>
-            <p id="text" class="text-lg">{{ thread.text }}</p>
+            <div class="pl-2 my-0.5">
+                <p id="text" class="text-lg">{{ thread.text }}</p>
+            </div>
             {% if is_users_thread %}
 
                 {% comment %} form to update thread {% endcomment %}
@@ -101,7 +103,7 @@
     </div>
     {% else %}
         
-        <div id="posts-container"></div>
+        <div id="posts-container" class="!text-left p-2"></div>
         <h2 id="h2">No posts yet!</h2>
         <p id="p">Create a new post!</p>
 
