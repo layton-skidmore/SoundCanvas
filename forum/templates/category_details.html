@@ -1,37 +1,56 @@
 {% extends 'forum_base.html' %}
 {% block content %}
 
-<div>
-    <h1>{{ category.album_name }}<h1>
-    <h4>{{ category.artist }}<h4>
+<div class="w-3/4 m-auto space-y-1 py-2 my-4">
+    <h1 class="text-4xl">{{ category.album_name }}<h1>
+    <h4 class="text-2xl">{{ category.artist }}<h4>
     {% if is_users_category %}
-        <p>This is your category <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
+        <p class="text-gray-400 text-sm inline pr-1">This is your category <a href="{% url 'forum:category_update' category.id %}">&#9999;&#65039;<a></p>
     {% endif %}
 </div>
+<div class="bg-white w-3/4 m-auto my-4">
 
-{% if category.thread_set.count %}
-
-    {% for thread in category.thread_set.all %}
-        <a href="{% url 'forum:thread_details' category.id thread.id %}">
-            <div>
-                <h2>{{ thread.title }}</h2>
-                <p>{{ thread.text }}</p>
-            </div>
-        </a>
-    {% endfor %}
-
-{% else %}
-    
-    <h2>No threads yet!</h2>
-    <p>Create a new thread</p>
-
+    <div id="form-div-thread" class="bg-blue-500 text-center pt-6 pb-2 my-3">
     <form action="{% url 'forum:category_details' category.id %}" method="POST">
         {% csrf_token %}
         <!-- Render the inputs -->
         {{ thread_form.as_p }}
-        <input type="submit" value="Create Thread">
+        <input class="styled-button" type="submit" value="Create Thread">
       </form>
+    </div>
+
+    <h1 class="text-2xl">List of Threads</h1>
+
+
+    {% if category.thread_set.count %}
+
+        <div class="text-left p-2">
+
+        {% for thread in category.thread_set.all %}
+        
+            <a href="{% url 'forum:thread_details' category.id thread.id %}">
+                <div>
+                    <p class="text-gray-600 text-sm inline">{{thread.user.username}}</p>
+                    <div class="pl-2 my-0.5 mt-1 hover:text-blue-500">
+                    <h2>{{ thread.title }}</h2>
+                    <div class="pl-2 my-0.5 mt-1 hover:text-blue-500">
+                    <p class="mb-3">{{ thread.text }}</p>
+                    </div>
+                    </div>
+                </div>
+            </a>
+        <hr class="w-11/12 m-auto">
+        {% endfor %}
+
+        </div>
+
+    {% else %}
+    
+    <h2>No threads yet!</h2>
+    <p>Create a new thread!</p>
 
 {% endif %}
+</div>
+
 
 {% endblock %}

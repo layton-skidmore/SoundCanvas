@@ -1,17 +1,28 @@
 {% extends 'forum_base.html' %}
 {% block content %}
 
-<h1>Discussion List</h1>
+<div class="w-3/4 m-auto space-y-1 py-2 my-4">
+  <h1 class="text-4xl">Discussion List</h1>
+</div>
 
-{% for category in category_list %}
-  <a href="{% url 'forum:category_details' category.id %}">
-    <div>
-        <div>
-            <h3>{{ category.album_name }}</p>
-            <p>{{ category.artist }}</p>
-        </div>
-    </div>
-  </a>
-{% endfor %}
+<div class="bg-white w-3/4 m-auto my-4">
+
+  <div class="p-2">
+
+  {% for category in category_list %}
+    <a class="hover:text-blue-500 ease-in-out" href="{% url 'forum:category_details' category.id %}">
+      <div>
+          <div>
+              <h3 class="text-2xl">{{ category.album_name }}</p>
+              <p class="text-lg">by. {{ category.artist }}</p>
+          </div>
+      </div>
+    </a>
+    <hr class="w-11/12 m-auto">
+
+  {% endfor %}
+  </div>
+
+  </div>
 
 {% endblock %}

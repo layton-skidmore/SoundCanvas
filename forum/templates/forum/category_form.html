@@ -1,22 +1,33 @@
 {% extends 'forum_base.html' %}
 
 {% block content %}
+  <div class="w-3/4 m-auto space-y-1 py-2 my-4">
   {% if object %}
-    <h1>Edit Your Category</h1>
+    
+    <h1 class="text-4xl">Edit Your Category</h1>
   {% else %}
-    <h1>Add Category</h1>
+    <h1 class="text-4xl">Add Category</h1>
   {% endif %}
+</div>
+
   <!-- Leaving the action empty makes the form post to the same url used to display it -->
-  <form action="" method="post">
+  <div class="bg-blue-500 flex justify-center w-3/4 m-auto py-6 pt-6 pb-2 my-3">
+  <form class="mx-auto" action="" method="post">
     <!-- Django requires the following for security purposes -->
     {% csrf_token %}
     <table>
       <!-- Render the inputs inside of <tr>s & <td>s -->
+
       {{ form.as_table }}
+
     </table>
-    <input type="submit" value="Submit!" class="">
-  </form>
+    <input class="styled-button my-3" type="submit" value="Submit!" class="">
   {% if object %}
-    <a href={% url 'forum:category_delete' object.id %}>Delete This Category<a>
+    <a class="styled-button inline" href={% url 'forum:category_delete' object.id %}>Delete This Category<a>
   {% endif %}
+</form>
+    </div>
+  
+
+
 {% endblock %}

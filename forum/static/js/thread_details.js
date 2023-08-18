@@ -2,10 +2,7 @@
 const toggleButtonPost = document.getElementById('post_button');
 const formDivPost = document.getElementById('form-div');
 
-toggleButtonPost.addEventListener('click', function() {
-    formDivPost.style.display = formDivPost.style.display === 'none' ? 'block' : 'none';
 
-});
 
 const toggleButtonThread = document.getElementById('thread_button');
 
@@ -46,21 +43,15 @@ form.addEventListener('submit', async (event) => {
     // value from form 
     const text = inputTextEl.value
 
-    console.log(text)
-
-    // supposed to reset input field to be blank
-    // does not work because of browser caching
+    // reset input field to be blank
     inputTextEl.value = "";
 
-    formDivPost.style.display = formDivPost.style.display === 'none' ? 'block' : 'none';
-
-    
-
-    
     
     // get path/ action of form
     const action = form.getAttribute('action');
     
+    // send info to django backend
+    // await response
     try {
         const response = await fetch(action, {
             method: 'POST',
@@ -76,14 +67,15 @@ form.addEventListener('submit', async (event) => {
     
     const data = await response.json();
 
+
     if (data.message === 'Post added successfully') {
 
-        console.log("here")
-
+        // reset postContainer to have no posts
         postsContainer.innerHTML = '';
 
-        // add the new posts to the posts container
+        // variable to hold list of posts
         const newPosts = data.posts;
+
         // create div for each post
         newPosts.forEach(post => {
 
@@ -91,33 +83,68 @@ form.addEventListener('submit', async (event) => {
 
 
             let postHTML = `
-                <h2>${post.text}</h2>
-                <p>${post.upvotes}</p>
-                <button>&#8679;</button><button>&#8681;</button>
+                <p class="text-gray-700 text-sm inline pr-1">${post.username}</p>
             `;
 
             if (post.user === data.user_id) {
-
                 postHTML += `
+                    <p class="text-gray-400 text-sm inline pr-1">this is your post</p>
                     <button id="edit-post-button">&#9999;&#65039;</button>
-
-                    <div id="edit-form-post" style="display: none;">
-                        <form id="form-post" action="/forum/${data.category_id}/${data.thread_id}/${post.id}/edit/" method="POST">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
-                        <p>
-                            <label>Text:</label>
-                            <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>${post.text}</textarea> 
-                        </p>
-                            <input type="submit" value="Update Post">
-                        </form>
-
-                        <a href="/forum/${data.category_id}/${data.thread_id}/${post.id}/delete/">Delete This Post</a>
-                    </div>
-                `;
+                `
             }
 
+            postHTML += `
+                <div class="pl-2 my-0.5">
+                <h2>${post.text}</h2>
+            `
+
+            if (post.user === data.user_id) {
+                postHTML += `
+                    <div id="edit-form-post" style="display: none;" class="bg-blue-500 text-center pt-6 pb-2">
+                        <form id="form-post" action="/forum/${data.category_id}/${data.thread_id}/${post.id}/edit/" method="POST">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+                            <p>
+
+                                <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>${post.text}</textarea> 
+                            </p>
+                            <input class="styled-button" type="submit" value="Update Post">
+                        </form>
+
+                        <a class="styled-button" href="/forum/${data.category_id}/${data.thread_id}/${post.id}/delete/">Delete This Post</a>
+                    </div>
+                `
+            }
+
+            postHTML += `
+            </div>
+            `
+
+            
+            // <h2>${post.text}</h2>
+            //     <p>${post.upvotes}</p>
+            //     <button>&#8679;</button><button>&#8681;</button>
+            // if (post.user === data.user_id) {
+
+            //     postHTML += `
+            //         <button id="edit-post-button">&#9999;&#65039;</button>
+
+            //         <div id="edit-form-post" style="display: none;">
+            //             <form id="form-post" action="/forum/${data.category_id}/${data.thread_id}/${post.id}/edit/" method="POST">
+            //             <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+            //             <p>
+            //                 <label>Text:</label>
+            //                 <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>${post.text}</textarea> 
+            //             </p>
+            //                 <input type="submit" value="Update Post">
+            //             </form>
+
+            //             <a href="/forum/${data.category_id}/${data.thread_id}/${post.id}/delete/">Delete This Post</a>
+            //         </div>
+            //     `;
+            // }
+
             postElement.innerHTML = postHTML
-            postElement.id = `${post.id}`
+            postElement.id = "header"
         
             postsContainer.appendChild(postElement);
         });
@@ -130,9 +157,12 @@ form.addEventListener('submit', async (event) => {
     editButtons = document.querySelectorAll("#edit-post-button");
     editButtons.forEach(editButton => {
         editButton.addEventListener("click", (event) => {
-            const formDiv = event.target.nextElementSibling;
+
+            const postContainer = event.target.closest('#header');
+
+            const formDiv = postContainer.querySelector('#edit-form-post');
     
-            // Show or hide the form div based on your logic
+            // toggle form
             formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
 
         });
@@ -148,19 +178,18 @@ form.addEventListener('submit', async (event) => {
     }
 });
 
-
+// 
 editButtons.forEach(editButton => {
     editButton.addEventListener("click", (event) => {
-        const formDiv = event.target.nextElementSibling;
+      
+        const postContainer = event.target.closest('#header');
+
+        const formDiv = postContainer.querySelector('#edit-form-post');
 
         // Show or hide the form div based on your logic
         formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
 
     });
 });
-
-// function showForm(event) {
-
-// }
 
   
