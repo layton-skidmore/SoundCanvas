@@ -162,7 +162,7 @@ editButtons.forEach(editButton => {
 
         const formDiv = postContainer.querySelector('#edit-form-post');
 
-        // Show or hide the form div based on your logic
+        // toggle form
         formDiv.style.display = formDiv.style.display === 'none' ? 'block' : 'none';
 
     });

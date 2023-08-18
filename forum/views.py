@@ -42,9 +42,11 @@ def details(request, category_id):
         'is_users_category': is_users_category,
     })
 
+
 class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['album_name', 'artist']
+    
 
 class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
@@ -73,9 +75,12 @@ def thread_details(request, category_id, thread_id):
     post_form = PostForm()
     is_users_thread = True if category.user.id == request.user.id else False
 
+    # will run when ASYNC code is sent
     if request.method == 'POST':
 
         json_data = None
+
+        # extract data from request
 
         if request.POST.dict() != {}:
 
@@ -92,17 +97,21 @@ def thread_details(request, category_id, thread_id):
         
         text = json_data.get('text')
 
+        # create form from text data
         form = PostForm({'text': text})
 
         if form.is_valid():
 
+            # add information save
             new_post = form.save(commit=False)
             new_post.user = request.user
             new_post.thread = thread
             new_post.save()
 
+            # get new list of posts
             posts = thread.post_set.all()
 
+            # format to send as JSON
             posts_data = []
             for post in posts:
                 post_data = {
@@ -118,7 +127,6 @@ def thread_details(request, category_id, thread_id):
                 posts_data.append(post_data)
             
             return JsonResponse({'message': 'Post added successfully', 'posts': posts_data, 'user_id': request.user.id, 'category_id': category.id, 'thread_id': thread.id}, content_type='application/json')
-
 
         
         return JsonResponse({'message': 'Post added unsuccessfully'}, content_type='application/json')
@@ -143,8 +151,6 @@ def thread_update(request, category_id, thread_id):
         
         title = request.POST['title']
         text = request.POST['text']
-
-
 
         thread.title = title
         thread.text = text

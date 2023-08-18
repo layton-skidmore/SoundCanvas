@@ -15,9 +15,13 @@
         
         <p class="text-gray-700 text-sm inline pr-1">{{category.user.username}}</p>
 
+        {% if is_users_thread %}
+
         <p class="text-gray-400 text-sm inline pr-1">this is your thread </p>
 
         <button id="thread_button">&#9999;&#65039;</button>
+
+        {% endif %}
 
         <div class="pl-2 my-0.5">
 
@@ -25,11 +29,11 @@
             <p id="text" class="text-lg">{{ thread.text }}</p>
             {% if is_users_thread %}
 
-
-                <div id="form-div-thread" style="display: none;" class="bg-blue-500 !text-center pt-6 pb-2 my-3">
+                {% comment %} form to update thread {% endcomment %}
+                <div id="form-div-thread" style="display: none;" class="bg-blue-500 text-center pt-6 pb-2 my-3">
                     <form id="form-thread" action="{% url 'forum:thread_update' category.id thread.id %}" method="POST">
                         {% csrf_token %}
-                        <!-- Render the inputs -->
+
                         <p>
                             <label>Title:</label>
                             <input type="text" name="title" maxlength="200" required id="form_title"></input>
@@ -43,19 +47,18 @@
 
                     <a class="styled-button" href={% url 'forum:thread_delete' category.id thread.id %}>Delete This Thread</a>
                 </div>
-
-        </div>
-
             
         {% endif %}
+        </div>
+
     </div>
 
 
-
+    {% comment %} form to add post {% endcomment %}
     <div class="bg-blue-500 pt-6 pb-2" id="form-div">
         <form id="form" action="{% url 'forum:thread_details' category.id thread.id %}" method="POST">
             {% csrf_token %}
-            <!-- Render the inputs -->
+
             {{ post_form.as_p }}
             <input class="styled-button" type="submit" value="Reply">
         </form>
@@ -74,18 +77,15 @@
                     
                     <div class="pl-2 my-0.5">
                     <h2>{{ post.text }}</h2>
-                    {% comment %} <p>{{ post.upvotes }}</p>
-                    <button>&#8679;</button><button>&#8681;</button> {% endcomment %}
 
+                    {% comment %} form to edit post {% endcomment %}
                     {% if post.user.id == user_id %}
 
-                    {% comment %} <button id="edit-post-button">&#9999;&#65039;</button> {% endcomment %}
 
-                        <div id="edit-form-post" style="display: none;" class="bg-blue-500 text-center pt-6 pb-2">
-                            <form id="form-post" action="{% url 'forum:post_update' category.id thread.id post.id %}" method="POST">
+                        <div id="edit-form-post" style="display: none;" class="bg-blue-500 flex justify-center text-center pt-6 pb-2">
+                            <form class="text-center" id="form-post" action="{% url 'forum:post_update' category.id thread.id post.id %}" method="POST">
                                 {% csrf_token %}
                                 <p>
-
                                     <textarea name="text" cols="40" rows="10" maxlength="3000" id="form_text" required>{{ post.text }}</textarea> 
                                 </p>
                                 <input class="styled-button" type="submit" value="Update Post">
