@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Delete Post</h1>
+<div class="w-3/4 m-auto space-y-1 py-2 my-4">
+  <h1 class="text-4xl">Delete Post</h1>
+</div>
 
-  <h4>Are you sure you want to delete this post</h4>
-  <p>{{ object.text }}</p>
+
+  <h4 class="text-2xl">Are you sure you want to delete this post!</h4>
+
+  <div class="bg-white w-3/4 m-auto my-4 py-4">
+  <p class="text-lg">{{ object.text }}</p>
 
 
   <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete!">
-    <a href="{% url 'forum:thread_details' object.thread.category.id object.thread.id %}">Cancel</a>
+    <input class="styled-button" type="submit" value="Yes - Delete!">
+    <a class="styled-button" href="{% url 'forum:thread_details' object.thread.category.id object.thread.id %}">Cancel</a>
   </form>
+</div>
 {% endblock %}

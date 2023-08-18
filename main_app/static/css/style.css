@@ -5,11 +5,12 @@ input[type="text"] {
     
 }
 
+
 body { 
   background-color: #11a6ee;
   text-align: center;
   font-family: 'Lato', sans-serif !important;  
-}
+  
 
 .styled-link {
     display: inline-block;
