@@ -8,9 +8,12 @@ from urllib.parse import parse_qs
 from .models import Category, Thread, Post
 from .forms import ThreadForm, PostForm
 import json
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
+@login_required
 def details(request, category_id):
 
     category = Category.objects.get(id=category_id)
@@ -39,11 +42,11 @@ def details(request, category_id):
         'is_users_category': is_users_category,
     })
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['album_name', 'artist']
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['album_name', 'artist']
 
@@ -53,15 +56,15 @@ class CategoryCreate(CreateView):
         return super().form_valid(form)
 
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     model = Category
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/forum'
 
-
+@login_required
 def thread_details(request, category_id, thread_id):
 
     category = Category.objects.get(id=category_id)
@@ -130,6 +133,7 @@ def thread_details(request, category_id, thread_id):
         'user_id': request.user.id,
     })
 
+@login_required
 def thread_update(request, category_id, thread_id):
 
 
@@ -148,14 +152,14 @@ def thread_update(request, category_id, thread_id):
 
         return redirect('forum:thread_details', category_id=category_id, thread_id=thread_id)
 
-class ThreadDelete(DeleteView):
+class ThreadDelete(LoginRequiredMixin, DeleteView):
     model = Thread
     
     def get_success_url(self):
         category_id = self.object.category.id
         return reverse('forum:category_details', kwargs={'category_id': category_id})
 
-        
+@login_required
 def post_update(request, category_id, thread_id, post_id):
 
     if request.method == 'POST':
@@ -170,7 +174,7 @@ def post_update(request, category_id, thread_id, post_id):
         return redirect('forum:thread_details', category_id=category_id, thread_id=thread_id)
 
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
 
     def get_success_url(self):
