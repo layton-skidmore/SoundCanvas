@@ -5,13 +5,11 @@
 ![discussion](https://github.com/layton-skidmore/unit_three_project/assets/124200590/057e96cd-843a-45fd-afa2-ab8d104dfc23)
 ![reply thread](https://github.com/layton-skidmore/unit_three_project/assets/124200590/27e5004e-8c56-4494-b733-8ca7cd8d7c9a)
 
-
-
 SoundCanvas is a community-driven forum designed for music enthusiasts to discuss and share their favorite music albums. Whether you're a die-hard music fan or just looking to discover new albums, SoundCanvas provides a platform for lively discussions, album recommendations, and connecting with fellow music lovers.
 
-**Technologies Used**: Python, HTML, CSS, JavaScript, Django, Tailwind CSS
+# **Technologies Used**: Python, HTML, CSS, JavaScript, Django, Tailwind CSS
 
-**Features**
+# **Features**
 
 **Discussion Threads**: Engage in meaningful discussions with other users about specific albums. Share your thoughts, insights, and opinions, and learn from the perspectives of fellow music aficionados.
 
@@ -19,7 +17,7 @@ SoundCanvas is a community-driven forum designed for music enthusiasts to discus
 
 **Album Reviews:** Write and read reviews for albums you love or have just discovered. Help others make informed listening choices and find hidden musical gems.
 
-**Getting Started** 
+# **Getting Started** 
 
 Visit SoundCanvas: https://soundcanvas.onrender.com/
 
@@ -40,7 +38,7 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 
 **No Spamming:** Refrain from spamming the forum with repetitive content or excessive self-promotion.
 
-**Ice Box Features**
+# **Ice Box Features**
 
 **Upvoting & Downvoting**: Show your appreciation for insightful comments and reviews by upvoting them. Similarly, downvote content that doesn't contribute positively to the community.
 
@@ -54,7 +52,7 @@ To ensure a positive and engaging experience for all users, we kindly ask you to
 
 **Report Concerns:** If you come across any content that violates our guidelines or seems inappropriate, please report it to the moderators for review.
 
-**Feedback and Support**
+# **Feedback and Support**
 
 We value your feedback and suggestions to make SoundCanvas better with each update. If you encounter any issues or have ideas for improvements, please reach out to our support team at jiang.j.jason@gmail.com
 
