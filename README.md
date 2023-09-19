@@ -1,11 +1,15 @@
 # **SoundCanvas**
 
+SoundCanvas is a community-driven forum designed for music enthusiasts to discuss and share their favorite music albums. Whether you're a die-hard music fan or just looking to discover new albums, SoundCanvas provides a platform for lively discussions, album recommendations, and connecting with fellow music lovers.
+
+# **Screenshots**
+
 ![home](https://github.com/layton-skidmore/unit_three_project/assets/124200590/3f843cab-8074-4995-8d37-29e9c4e23b6f)
 ![add album](https://github.com/layton-skidmore/unit_three_project/assets/124200590/b2978ea4-4098-48be-a0e4-984cdc6ab874)
 ![discussion](https://github.com/layton-skidmore/unit_three_project/assets/124200590/057e96cd-843a-45fd-afa2-ab8d104dfc23)
 ![reply thread](https://github.com/layton-skidmore/unit_three_project/assets/124200590/27e5004e-8c56-4494-b733-8ca7cd8d7c9a)
 
-SoundCanvas is a community-driven forum designed for music enthusiasts to discuss and share their favorite music albums. Whether you're a die-hard music fan or just looking to discover new albums, SoundCanvas provides a platform for lively discussions, album recommendations, and connecting with fellow music lovers.
+
 
 # **Technologies Used**: 
 
