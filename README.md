@@ -9,7 +9,7 @@ SoundCanvas is a community-driven forum designed for music enthusiasts to discus
 
 # **Technologies Used**: 
 
-Python, HTML, CSS, JavaScript, Django, Tailwind CSS
+**Python, HTML, CSS, JavaScript, Django, Tailwind CSS**
 
 # **Features**
 
