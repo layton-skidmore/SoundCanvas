@@ -1,4 +1,4 @@
-# SoundCanvas
+# **SoundCanvas**
 
 ![home](https://github.com/layton-skidmore/unit_three_project/assets/124200590/3f843cab-8074-4995-8d37-29e9c4e23b6f)
 ![add album](https://github.com/layton-skidmore/unit_three_project/assets/124200590/b2978ea4-4098-48be-a0e4-984cdc6ab874)
